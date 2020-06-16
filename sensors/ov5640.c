@@ -1064,6 +1064,20 @@ static int init_status(sensor_t *sensor)
     return 0;
 }
 
+static int deinit(sensor_t *sensor)
+{
+    vTaskDelay(100 / portTICK_PERIOD_MS);
+    int ret = 0;
+    ESP_LOGI(TAG, "software resetting ov5640!");
+    // Software Reset: clear all registers and reset them to their default values
+    ret = write_reg(sensor->slv_addr, SYSTEM_CTROL0, 0x82);
+    if(ret){
+        ESP_LOGE(TAG, "Software Reset FAILED!");
+        return ret;
+    }
+    return 0;
+}
+
 int ov5640_init(sensor_t *sensor)
 {
     sensor->reset = reset;
@@ -1101,5 +1115,6 @@ int ov5640_init(sensor_t *sensor)
     sensor->set_res_raw = set_res_raw;
     sensor->set_pll = _set_pll;
     sensor->set_xclk = set_xclk;
+    sensor->deinit = deinit;
     return 0;
 }
