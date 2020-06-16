@@ -1366,6 +1366,9 @@ esp_err_t esp_camera_deinit()
         esp_intr_disable(s_state->i2s_intr_handle);
         esp_intr_free(s_state->i2s_intr_handle);
     }
+    if (s_state->sensor.deinit) {
+      s_state->sensor.deinit(&s_state->sensor);
+    }
     dma_desc_deinit();
     camera_fb_deinit();
     free(s_state);

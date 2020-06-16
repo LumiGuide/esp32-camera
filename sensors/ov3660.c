@@ -1029,5 +1029,6 @@ int ov3660_init(sensor_t *sensor)
     sensor->set_res_raw = set_res_raw;
     sensor->set_pll = _set_pll;
     sensor->set_xclk = set_xclk;
+    sensor->deinit = NULL;
     return 0;
 }
