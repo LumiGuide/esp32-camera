@@ -38,7 +38,8 @@
         .pixel_format   = PIXFORMAT_JPEG,
         .frame_size     = FRAMESIZE_SVGA,
         .jpeg_quality   = 10,
-        .fb_count       = 2
+        .fb_count       = 2,
+        .slave_addr     = -1
     };
 
     esp_err_t camera_example_init(){
@@ -105,6 +106,7 @@ typedef struct {
 
     int jpeg_quality;               /*!< Quality of JPEG output. 0-63 lower means higher quality  */
     size_t fb_count;                /*!< Number of frame buffers to be allocated. If more than one, then each frame will be acquired (double speed)  */
+    int slave_addr;                 /*!< I2C slave addr, default(-1)=probe */
 } camera_config_t;
 
 /**

@@ -110,7 +110,8 @@ static camera_config_t camera_config = {
     .frame_size = FRAMESIZE_UXGA,//QQVGA-QXGA Do not use sizes above QVGA when not JPEG
 
     .jpeg_quality = 12, //0-63 lower number means higher quality
-    .fb_count = 1 //if more than one, i2s runs in continuous mode. Use only with JPEG
+    .fb_count = 1, //if more than one, i2s runs in continuous mode. Use only with JPEG
+    .slave_addr = -1 //probe i2c bus for devices
 };
 
 esp_err_t camera_init(){

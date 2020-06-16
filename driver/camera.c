@@ -996,13 +996,16 @@ esp_err_t camera_probe(const camera_config_t* config, camera_model_t* out_camera
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 
-    ESP_LOGD(TAG, "Searching for camera address");
-    vTaskDelay(10 / portTICK_PERIOD_MS);
-    uint8_t slv_addr = SCCB_Probe();
-    if (slv_addr == 0) {
+    uint8_t slv_addr = config->slave_addr;
+    if (config->slave_addr < 0) {
+      ESP_LOGD(TAG, "Searching for camera address");
+      vTaskDelay(10 / portTICK_PERIOD_MS);
+      uint8_t slv_addr = SCCB_Probe();
+      if (slv_addr == 0) {
         *out_camera_model = CAMERA_NONE;
         camera_disable_out_clock();
         return ESP_ERR_CAMERA_NOT_DETECTED;
+      }
     }
     
     //slv_addr = 0x30;
