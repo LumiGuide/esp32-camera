@@ -1366,6 +1366,7 @@ esp_err_t esp_camera_deinit()
         vSemaphoreDelete(s_state->frame_ready);
     }
     gpio_isr_handler_remove(s_state->config.pin_vsync);
+    gpio_uninstall_isr_service();
     if (s_state->i2s_intr_handle) {
         esp_intr_disable(s_state->i2s_intr_handle);
         esp_intr_free(s_state->i2s_intr_handle);
