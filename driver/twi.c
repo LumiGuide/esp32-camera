@@ -18,6 +18,7 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+#ifdef CONFIG_SCCB_HARDWARE_I2C
 #include <stdint.h>
 #include <stdbool.h>
 #include "twi.h"
@@ -26,7 +27,6 @@
 #include "soc/io_mux_reg.h"
 #include "driver/rtc_io.h"
 #include <stdio.h>
-
 
 #define LOW               0x0
 #define HIGH              0x1
@@ -430,3 +430,4 @@ unsigned char twi_readFrom(unsigned char address, unsigned char* buf, unsigned i
     }
     return 0;
 }
+#endif
